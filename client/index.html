@@ -2,12 +2,13 @@
   <title>Birdseed</title>
 </head>
 <body>
+	<header>
+		{{> loginButtons}}
+	</header>
 	<div class="container">
 		<div class="row">
 			<div class="span 6">
 				<h3>Feed your tweets!</h3>
-				<h4>Sign in with Twitter to start.</h4>
-				{{> loginButtons}}
 			</div>
 			<table class="table">
       			{{#each quotes}}
