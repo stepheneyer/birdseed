@@ -15,10 +15,24 @@ if (Meteor.isClient) {
             collection: Quotes,
             rowsPerPage: 10,
             showFilter: true,
-            useFontAwesome: true,
-            fields: ['quote', 'credit', 'category']
+            showNavigation: 'auto',
+            fields: [
+            { key: 'quote', label: 'Quote' },
+            { key: 'credit', label: 'Credit' },
+            { key: 'category', label: 'Category'}
+            ]
         };
     }
 });
+
+  Template.filter.events({
+  'click .reactive-table tr': function (event) {
+    event.preventDefault();
+    var row = this;
+    var fullQuote = row.quote + ' -' + row.credit;
+    console.log(fullQuote);
+  }
+});
+
 
 }
