@@ -8,4 +8,17 @@ if (Meteor.isClient) {
     return Quotes.find();
   }
 });
+
+  Template.filter.helpers({
+      settings: function () {
+        return {
+            collection: Quotes,
+            rowsPerPage: 10,
+            showFilter: true,
+            useFontAwesome: true,
+            fields: ['quote', 'credit', 'category']
+        };
+    }
+});
+
 }

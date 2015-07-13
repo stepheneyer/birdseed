@@ -10,14 +10,23 @@
 			<div class="span 6">
 				<h3>Feed your tweets!</h3>
 			</div>
-			<table class="table">
+			<div class="filter">
+				{{> filter}}
+			</div>
+<!-- 			<table class="table">
       			{{#each quotes}}
         			{{> quote}}
       			{{/each}}
-			</table>
+			</table> -->
 		</div>
 	</div>
 </body>
+
+<template name="filter">
+	<div id="table">
+ 		{{> reactiveTable collection=collection fields=fields settings=settings}}
+	</div>
+</template>
 
 <template name="quote">
 	<tr>
@@ -25,14 +34,15 @@
 			"{{quote}}" - {{credit}}
 		</td>
 		<td class="tweetButton">
-<!-- 			<a class="twitter-share-button"
-  				href="https://twitter.com/intent/tweet?text=&quot;{{quote}}&quot; - {{credit}}&via=birdseed"
-  				data-counturl="https://dev.twitter.com/web/tweet-button" data-size="large" data-hashtags="feedyourbird">Tweet</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> -->
 
 				<a href="https://twitter.com/share?text=&quot;{{quote}}&quot; - {{credit}}" class="twitter-share-button" data-url="http://birdseed.meteor.com" data-via="birdseed" data-size="large">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 		</td>
 	</tr>
 </template>
+
+
+
+
