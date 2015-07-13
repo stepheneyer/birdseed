@@ -18,7 +18,7 @@ if (Meteor.isClient) {
             showNavigation: 'auto',
             fields: [
             { key: 'quote', label: 'Quote' },
-            { key: 'credit', label: 'Credit' },
+            { key: 'author', label: 'Author' },
             { key: 'category', label: 'Category'}
             ]
         };
@@ -29,10 +29,8 @@ if (Meteor.isClient) {
   'click .reactive-table tr': function (event) {
     event.preventDefault();
     var row = this;
-    var fullQuote = row.quote + ' -' + row.credit;
+    var fullQuote = row.quote + ' -' + row.author;
     console.log(fullQuote);
   }
 });
-
-
 }
