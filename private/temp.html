@@ -1,0 +1,14 @@
+<template name="quote">
+	<tr>
+		<td class="quoteFull">
+			"{{quote}}" - {{author}}
+		</td>
+		<td class="tweetButton">
+
+				<a href="https://twitter.com/share?text=&quot;{{quote}}&quot; - {{author}}" class="twitter-share-button" data-url="http://birdseed.meteor.com" data-via="birdseed" data-size="large">Tweet</a>
+				
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+		</td>
+	</tr>
+</template>
