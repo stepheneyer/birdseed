@@ -19,11 +19,15 @@
 </body>
 
 <template name="filter">
-	<div class="fabric">
-		<canvas id="c"></canvas>
-		<br>
-		<button type="button" class="btn btn-default" id="saveBtn">Save</button>
+	<form role="form">
+		<div class="form-group">
+		<div class="fabric">
+			<canvas id="c"></canvas>
+			<br>
+			<button type="submit" class="btn btn-default" id="saveBtn">Save</button>
+		</div>
 	</div>
+	</form>
 	<div id="table">
  		{{> reactiveTable collection=collection fields=fields settings=settings}}
 	</div>

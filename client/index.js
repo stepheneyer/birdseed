@@ -1,6 +1,7 @@
 if (Meteor.isClient) {
   
   Meteor.subscribe('quotes');
+  Meteor.subscribe('tweets');
 
   // This code only runs on the client
   Template.body.helpers({
@@ -55,10 +56,11 @@ if (Meteor.isClient) {
       'click #saveBtn' : function (event) {
       event.preventDefault();
       var canvasSelect = document.getElementById("c");
-      var image = canvasSelect.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      window.location.href = image;
+      var tweetURL = canvasSelect.toDataURL("image/png");
+      // var image = canvasSelect.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      // window.location.href = image;
       // document.write('<img src="'+image+'"/>');
-      console.log(image);
+      Meteor.call("addTweet", tweetURL);
     }
 });
 }
