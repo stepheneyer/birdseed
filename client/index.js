@@ -29,9 +29,13 @@ if (Meteor.isClient) {
   Template.filter.events({
     'click .reactive-table tr': function (event) {
       event.preventDefault();
+      document.getElementById("saveBtn").className = "show";
       var row = this;
-      var fullQuote = row.quote + '\n' + ' -' + row.author;
-      console.log(fullQuote.length);
+      var fullQuote = row.quote + '\n\n' + ' - ' + row.author;
+
+      var quoteWithMarks = "'" + row.quote + "'" + ' -' + row.author;
+      tweetQuote = truncate(quoteWithMarks);
+
       var canvas = new fabric.Canvas('c');
       var img = new Image();
       img.onload = function(){
@@ -49,18 +53,25 @@ if (Meteor.isClient) {
         fontFamily: 'Arial',
         fontSize: 16,
         left: 90,
-        top: 100
+        top: 100,
+        selectable: false
       });
       canvas.add(text);
     },
       'click #saveBtn' : function (event) {
       event.preventDefault();
       var canvasSelect = document.getElementById("c");
-      var tweetURL = canvasSelect.toDataURL("image/png");
-      // var image = canvasSelect.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      // window.location.href = image;
-      // document.write('<img src="'+image+'"/>');
-      Meteor.call("addTweet", tweetURL);
+
+      // images saved to db need to have header removed for direct publish to Twitter API
+      var tweetData = canvasSelect.toDataURL("image/png").replace("data:image/png;base64,", "");
+      Meteor.call("saveTweet", tweetData, tweetQuote);
     }
 });
+}
+
+function truncate(string) {
+  if (string.length > 127)
+      return string.substring(0,127)+'...';
+  else
+      return string; 
 }
