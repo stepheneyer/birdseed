@@ -1,14 +1,15 @@
 <head>
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/latest/flatly/bootstrap.min.css" rel="stylesheet">
   <title>Birdseed</title>
 </head>
 <body>
-	<div class="container">
 			{{> header}}
+	<div class="container">
 		<div class="row">
 				{{> flashMessages}}
-			<div class="span 6">
-				<h3>Feed your bird so he can tweet!</h3>
-				Select one of our organically grown quotes to get started.
+			<div class=".col-md-8">
+				<h1>Feed your bird so he can tweet!</h1>
+				<h5>Select one of our organically grown quotes to get started.</h5>
 			</div>
 			<div class="filter">
 				{{> filter}}
@@ -38,7 +39,7 @@
 		<div class="fabric">
 			<canvas id="c"></canvas>
 			<br>
-			<button type="submit" class="btn btn-default hidden" id="saveBtn">Tweet this!</button>
+			<button type="submit" class="btn btn-default hidden " id="saveBtn">Tweet this!</button>
 		</div>
 	</div>
 	</form>
