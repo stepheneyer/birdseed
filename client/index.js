@@ -90,7 +90,11 @@ if (Meteor.isClient) {
         }
       },
       'click #saveBtn' : function (event) {
-        event.preventDefault();
+        event.preventDefault();        
+        
+        if (! Meteor.userId()) {
+            FlashMessages.sendError("Please sign in with Twitter to send a tweet.");
+        } else {
         
         // remove selection bounding boxes from image before saving it
         canvas.deactivateAll();
@@ -104,6 +108,10 @@ if (Meteor.isClient) {
         
         // save quote and image to db and tweet it!
         Meteor.call("saveTweet", tweetData, tweetQuote);
+
+        // notify user that tweet was sent (still needs server hook)
+        FlashMessages.sendSuccess("Success! Your tweet was just sent. You can view it by visiting <a href='http://www.twitter.com' target='blank'>Twitter</a>.", { hideDelay: 10000 });
+        }
       }
   });
 }
