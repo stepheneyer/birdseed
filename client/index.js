@@ -4,6 +4,10 @@ if (Meteor.isClient) {
     // initialize once, on document ready
     // create new blank canvas on page
     canvas = new fabric.Canvas('c', { width: 660, height: 330});
+    // canvas.add(new fabric.IText('Choose a quote to get started.', {
+    //   fontFamily: 'Arial',
+    //   fontSize: 24,
+    // }));
   });
 
   Meteor.subscribe('quotes');
@@ -32,12 +36,12 @@ if (Meteor.isClient) {
       }
   });    
 
-  var canvas, img, text; // store variables in outer scope
+  var canvas, img, textQuote, textAuthor; // store variables in outer scope
 
   Template.filter.events({
       'click .reactive-table tr': function (event) {
         event.preventDefault();
-        canvas.remove(text);
+        canvas.remove(textQuote, textAuthor);
 
         document.getElementById("saveBtn").className = "show";
         var row = this;
@@ -47,7 +51,7 @@ if (Meteor.isClient) {
           // use to make image
           var fullQuote = row.quote + '\n\n' + ' - ' + row.author;
 
-          // use this text with quotes for status update
+          // use this text with quotes for Twitter status update
           var quoteWithMarks = "'" + row.quote + "'" + ' -' + row.author;
           tweetQuote = truncate(quoteWithMarks);
 
@@ -64,28 +68,45 @@ if (Meteor.isClient) {
           img.src = "http://localhost:3000/birdseed_quotation_marks.png";
           
           // create new text element and add quote
-          text = new fabric.IText(fullQuote, { 
+          textQuote = new fabric.IText(row.quote, { 
             fontFamily: 'Arial',
             fontSize: 24,
             fill: '#ffffff',
             left: 90,
             top: 100,
           });
-          canvas.add(text);
+          
+          // create new text element and add author
+          textAuthor = new fabric.IText(' - ' + row.author, { 
+            fontFamily: 'Arial',
+            fontSize: 18,
+            fill: '#ffffff',
+            left: 425,
+            top: 180,
+          });
+          canvas.add(textQuote);
+          canvas.add(textAuthor);
           canvas.renderAll();
         }
       },
       'click #saveBtn' : function (event) {
         event.preventDefault();
-        var canvasSelect = document.getElementById("c");
+        
+        // remove selection bounding boxes from image before saving it
+        canvas.deactivateAll();
+        canvas.selection = false;
+        canvas.forEachObject(function(o) {
+          o.selectable = false;
+        });
 
         // images saved to db need to have header removed for direct publish to Twitter API
-        var tweetData = canvasSelect.toDataURL("image/png").replace("data:image/png;base64,", "");
+        var tweetData = canvas.toDataURL("image/png").replace("data:image/png;base64,", "");
+        
+        // save quote and image to db and tweet it!
         Meteor.call("saveTweet", tweetData, tweetQuote);
       }
   });
 }
-
 
 // UTILITY
 
