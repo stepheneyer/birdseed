@@ -13,37 +13,33 @@ if (Meteor.isServer) {
 
         var T = new Twit(apikeys);
 
-        // Tweets.after.insert(function(userId, doc) {
-        //     console.log("The console log is:" + doc.tweetImg);
+        Tweets.after.insert(function(userId, doc) {
 
-        //     //upload new tweet data first
+            //upload new tweet data first
 
-        //     T.post('media/upload', {
-        //             media_data: doc.tweetImg
-        //         },
+            T.post('media/upload', {
+                    media_data: doc.tweetImg
+                },
 
-        //         Meteor.bindEnvironment(function(err, data, response) {
-        //             console.log(data);
+                Meteor.bindEnvironment(function(err, data, response) {
+                    console.log(data);
 
-        //             // now we can reference the media and post a tweet (media will attach to the tweet)
+                    // now we can reference the media and post a tweet (media will attach to the tweet)
 
-        //             var mediaIdStr = data.media_id_string;
-        //             var params = {
-        //                 status: 'Someone wiser than me once said... #birdseed',
-        //                 media_ids: [mediaIdStr]
-        //             };
+                    var mediaIdStr = data.media_id_string;
+                    var params = {
+                        status: doc.tweetText + ' #birdseed',
+                        media_ids: [mediaIdStr]
+                    };
 
-        //             T.post('statuses/update', params,
+                    T.post('statuses/update', params,
 
-        //                 Meteor.bindEnvironment(function(err, data, response) {
-        //                     console.log(data);
-        						// if (!err) {
-        							// FlashMessages.sendSuccess("Your Tweet was published! See it on <a href='http://www.twitter.com'>Twitter.</a>", { hideDelay: 10000 });
-        						// }
-        //                 })
-        //             );
-        //         })
-        //     );
-        // });
+                        Meteor.bindEnvironment(function(err, data, response) {
+                            console.log(data);
+                        })
+                    );  
+                })
+            );
+        });
     });
 }
