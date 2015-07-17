@@ -1,4 +1,4 @@
-#Birdseed - Twitter Quote Generator Made with Meteor
+#Birdseed - Twitter Quote Generator Built with Meteor
 
 ##Technologies Used
 
