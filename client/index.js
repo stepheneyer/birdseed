@@ -105,7 +105,7 @@ if (Meteor.isClient) {
         var tweetData = canvas.toDataURL("image/png").replace("data:image/png;base64,", "");
         
         // save quote and image to db and tweet it!
-        Meteor.call("saveTweet", tweetData, tweetQuote);
+        // Meteor.call("saveTweet", tweetData, tweetQuote);
 
         // notify user that tweet was sent (still needs server hook)
         FlashMessages.sendSuccess("Success! Your tweet was just sent. You can view it by visiting <a href='http://www.twitter.com' target='blank'>Twitter</a>.", { hideDelay: 10000 });

@@ -13,33 +13,33 @@ if (Meteor.isServer) {
 
         var T = new Twit(apikeys);
 
-        Tweets.after.insert(function(userId, doc) {
+        // Tweets.after.insert(function(userId, doc) {
 
-            //upload new tweet data first
+        //     //upload new tweet data first
 
-            T.post('media/upload', {
-                    media_data: doc.tweetImg
-                },
+        //     T.post('media/upload', {
+        //             media_data: doc.tweetImg
+        //         },
 
-                Meteor.bindEnvironment(function(err, data, response) {
-                    console.log(data);
+        //         Meteor.bindEnvironment(function(err, data, response) {
+        //             console.log(data);
 
-                    // now we can reference the media and post a tweet (media will attach to the tweet)
+        //             // now we can reference the media and post a tweet (media will attach to the tweet)
 
-                    var mediaIdStr = data.media_id_string;
-                    var params = {
-                        status: doc.tweetText + ' #birdseed',
-                        media_ids: [mediaIdStr]
-                    };
+        //             var mediaIdStr = data.media_id_string;
+        //             var params = {
+        //                 status: doc.tweetText + ' #birdseed',
+        //                 media_ids: [mediaIdStr]
+        //             };
 
-                    T.post('statuses/update', params,
+        //             T.post('statuses/update', params,
 
-                        Meteor.bindEnvironment(function(err, data, response) {
-                            console.log(data);
-                        })
-                    );  
-                })
-            );
-        });
+        //                 Meteor.bindEnvironment(function(err, data, response) {
+        //                     console.log(data);
+        //                 })
+        //             );  
+        //         })
+        //     );
+        // });
     });
 }
