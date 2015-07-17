@@ -117,19 +117,9 @@ if (Meteor.isClient) {
 // UTILITY
 
 function truncate(string) {
-  if (string.length > 127)
-      return string.substring(0,127)+'...';
+  if (string.length > 103)
+      return string.substring(0,103)+"...'";
   else
       return string; 
 }
 
-function addLineBreak(quote) {
-  if (quote.length >= 47) {
-      var left = quote.substring(0, 47);
-      var right = quote.substring(47);
-      newQuote = left + '\n' + right;
-      return newQuote;
-  } else {
-      return quote;
-  }
-}
