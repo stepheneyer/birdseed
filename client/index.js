@@ -65,7 +65,7 @@ if (Meteor.isClient) {
                 top: 0
             });
           };
-          img.src = "http://localhost:3000/birdseed_quotation_marks.png";
+          img.src = "birdseed_quotation_marks.png";
           
           // create new text element and add quote
           textQuote = new fabric.IText(row.quote, { 
