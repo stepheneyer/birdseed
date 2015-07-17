@@ -48,9 +48,6 @@ if (Meteor.isClient) {
 
         if (row.quote !== undefined) {
 
-          // use to make image
-          var fullQuote = row.quote + '\n\n' + ' - ' + row.author;
-
           // use this text with quotes for Twitter status update
           var quoteWithMarks = "'" + row.quote + "'" + ' -' + row.author;
           tweetQuote = truncate(quoteWithMarks);
@@ -71,6 +68,7 @@ if (Meteor.isClient) {
           textQuote = new fabric.IText(row.quote, { 
             fontFamily: 'Arial',
             fontSize: 24,
+            width: 230,
             fill: '#ffffff',
             left: 90,
             top: 100,
@@ -123,4 +121,15 @@ function truncate(string) {
       return string.substring(0,127)+'...';
   else
       return string; 
+}
+
+function addLineBreak(quote) {
+  if (quote.length >= 47) {
+      var left = quote.substring(0, 47);
+      var right = quote.substring(47);
+      newQuote = left + '\n' + right;
+      return newQuote;
+  } else {
+      return quote;
+  }
 }
