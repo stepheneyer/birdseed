@@ -1,4 +1,4 @@
 settings.json
 .DS_Store
-secret
 *.swp
+lib/temp.js

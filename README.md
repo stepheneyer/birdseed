@@ -19,13 +19,13 @@ meteor add twbs:bootstrap
 meteor add ian:accounts-ui-bootstrap-3
 meteor add accounts-password
 meteor add accounts-twitter
-meteor remove autopublish
-meteor remove insecure
 meteor add fort awesome:fontawesome
 meteor add aslagle:reactive-table
 meteor add ryanswapp:fabricjs
 meteor add matb33:collection-hooks
 meteor add mrt:flash-messages
+meteor add meteorhacks:npm
+meteor add mrt:twit
 ```
 
 ##General Approach to Development

@@ -1,45 +1,44 @@
 if (Meteor.isServer) {
-    Meteor.startup(function() {
-        //code to run on server at startup
 
-        var apikeys = {
-            consumer_key: Meteor.settings.twitter_consumer_key,
-            consumer_secret: Meteor.settings.twitter_consumer_secret,
-            access_token: Meteor.settings.twitter_access_token_key,
-            access_token_secret: Meteor.settings.twitter_access_token_secret
-        };
+	Accounts.onLogin(function(user) {
 
-        var Twit = Meteor.npmRequire('twit');
+		var apikeys = {
+	        consumer_key: Meteor.settings.twitter.consumer_key,
+	        consumer_secret: Meteor.settings.twitter.consumer_secret,
+	        access_token: user.user.services.twitter.accessToken,
+	        access_token_secret: user.user.services.twitter.accessTokenSecret
+	    };
 
-        var T = new Twit(apikeys);
+	    Twit = Meteor.npmRequire('twit');
 
-        // Tweets.after.insert(function(userId, doc) {
+	    T = new Twit(apikeys);
+	});
 
-        //     //upload new tweet data first
 
-        //     T.post('media/upload', {
-        //             media_data: doc.tweetImg
-        //         },
+    Tweets.after.insert(function(userId, doc) {
 
-        //         Meteor.bindEnvironment(function(err, data, response) {
-        //             console.log(data);
+        //upload new tweet data first
+        T.post('media/upload', {
+                media_data: doc.tweetImg
+            },
 
-        //             // now we can reference the media and post a tweet (media will attach to the tweet)
+            Meteor.bindEnvironment(function(err, data, response) {
+                console.log(data);
 
-        //             var mediaIdStr = data.media_id_string;
-        //             var params = {
-        //                 status: doc.tweetText + ' #birdseed',
-        //                 media_ids: [mediaIdStr]
-        //             };
+                // now we can reference the media and post a tweet (media will attach to the tweet)
+                var mediaIdStr = data.media_id_string;
+                var params = {
+                    status: doc.tweetText + ' #birdseed',
+                    media_ids: [mediaIdStr]
+                };
 
-        //             T.post('statuses/update', params,
+                T.post('statuses/update', params,
 
-        //                 Meteor.bindEnvironment(function(err, data, response) {
-        //                     console.log(data);
-        //                 })
-        //             );  
-        //         })
-        //     );
-        // });
+                    Meteor.bindEnvironment(function(err, data, response) {
+                        console.log(data);
+                    })
+                );  
+            })
+        );
     });
 }

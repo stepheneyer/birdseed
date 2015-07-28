@@ -4,16 +4,12 @@ if (Meteor.isClient) {
     // initialize once, on document ready
     // create new blank canvas on page
     canvas = new fabric.Canvas('c', { width: 660, height: 330});
-    // canvas.add(new fabric.IText('Choose a quote to get started.', {
-    //   fontFamily: 'Arial',
-    //   fontSize: 24,
-    // }));
   });
 
   Meteor.subscribe('quotes');
   Meteor.subscribe('tweets');
 
-  // This code only runs on the client
+  // this code only runs on the client
   Template.body.helpers({
     quotes: function() {
       return Quotes.find();
@@ -105,7 +101,7 @@ if (Meteor.isClient) {
         var tweetData = canvas.toDataURL("image/png").replace("data:image/png;base64,", "");
         
         // save quote and image to db and tweet it!
-        // Meteor.call("saveTweet", tweetData, tweetQuote);
+        Meteor.call("saveTweet", tweetData, tweetQuote);
 
         // notify user that tweet was sent (still needs server hook)
         FlashMessages.sendSuccess("Success! Your tweet was just sent. You can view it by visiting <a href='http://www.twitter.com' target='blank'>Twitter</a>.", { hideDelay: 10000 });
