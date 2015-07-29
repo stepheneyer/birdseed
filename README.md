@@ -59,10 +59,10 @@ cd birdseed
 
 ```
 {
-    "twitter_consumer_key": "YOUR CONSUMER KEY",
-    "twitter_consumer_secret": "YOUR SECRET",
-    "twitter_access_token_key": "YOUR ACCESS TOKEN",
-    "twitter_access_token_secret": "YOUR ACCESS TOKEN SECRET"
+	"twitter": {
+    "consumer_key": "YOUR CONSUMER KEY",
+    "consumer_secret": "YOUR SECRET"
+    }
 }
 
 ```
