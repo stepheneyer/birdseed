@@ -22,7 +22,7 @@ if (Meteor.isServer) {
                 media_data: doc.tweetImg
             },
 
-            Meteor.bindEnvironment(function(err, data, response) {
+            function(err, data, response) {
                 console.log(data);
 
                 // now we can reference the media and post a tweet (media will attach to the tweet)
@@ -33,12 +33,11 @@ if (Meteor.isServer) {
                 };
 
                 T.post('statuses/update', params,
-
-                    Meteor.bindEnvironment(function(err, data, response) {
+                    function(err, data, response) {
                         console.log(data);
-                    })
+                    }
                 );  
-            })
+            }
         );
     });
 }

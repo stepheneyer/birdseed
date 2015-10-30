@@ -60,8 +60,11 @@ if (Meteor.isClient) {
           };
           img.src = "birdseed_quotation_marks.png";
           
-          // create new text element and add quote
-          textQuote = new fabric.IText(row.quote, { 
+          // text wrap the quote to fit
+          wrappedQuote = wordWrap(row.quote, 47, "\n");
+          
+          // create new text element and add wrapped quote  
+          textQuote = new fabric.IText(wrappedQuote, { 
             fontFamily: 'Arial',
             fontSize: 24,
             width: 230,
@@ -69,15 +72,20 @@ if (Meteor.isClient) {
             left: 90,
             top: 100,
           });
-          
+
+          // get height of textQuote
+          textHeight = textQuote.getHeight();
+          console.log(textHeight);
+
           // create new text element and add author
           textAuthor = new fabric.IText(' - ' + row.author, { 
             fontFamily: 'Arial',
             fontSize: 18,
             fill: '#ffffff',
-            left: 425,
-            top: 180,
+            left: 400,
+            top: textHeight + 110,
           });
+
           canvas.add(textQuote);
           canvas.add(textAuthor);
           canvas.renderAll();
@@ -117,5 +125,20 @@ function truncate(string) {
       return string.substring(0,103)+"...'";
   else
       return string; 
+}
+
+
+function wordWrap(str, width, spaceReplacer) {
+    if (str.length>width) {
+        var p=width;
+        for (;p>0 && str[p]!=' ';p--) {
+        }
+        if (p>0) {
+            var left = str.substring(0, p);
+            var right = str.substring(p+1);
+            return left + spaceReplacer + wordWrap(right, width, spaceReplacer);
+        }
+    }
+    return str;
 }
 
