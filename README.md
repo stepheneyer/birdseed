@@ -74,11 +74,11 @@ meteor --settings settings.json
 
 ##Version
 
-0.1.5
+0.1.6
 
 ##To Do
 
-- Text does not wrap
+- Add form for creating custom qutoes
 
 
 ##Deploy link
